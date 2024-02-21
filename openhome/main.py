@@ -1,4 +1,5 @@
 from openhome.LLM import chatgpt
+from openhome.capabilities.suggest_movies import suggest_movies
 from openhome.voice_input_output.text_to_voice import text_to_speech
 
 from openhome.voice_input_output.voice_to_text import record_and_transcribe
@@ -45,7 +46,7 @@ with open('openhome/config.yaml', 'r', encoding='utf-8') as file:
 # call the function for adding arguments to this script and get arguments value passed from user.
 personality_id =  get_initial_personality()
 
-# get the personality dictioanry.
+# get the personality dictionary.
 personality = load_personality(personality_id=personality_id)
 
 
@@ -103,6 +104,12 @@ def main(personality, conversation, mood_json, mood_instructions):
                     action_feedback['resumeEvent'].wait()  # Wait for the capability script to signal completion
                 print('Resuming main conversation loop.')
 
+        if "movie" in user_message.lower():
+            movie_suggestions = suggest_movies(
+                file_data['tmdb_api_key'])
+            response = movie_suggestions
+
+
         # Check if the message was valid to continue processing
         if not is_valid_message:
             return conversation, mood_json
@@ -111,8 +118,6 @@ def main(personality, conversation, mood_json, mood_instructions):
         # print('Generating customized Mood prompt.')
         # start_time = time()
 
-
-        
 
         # if we want to set cusotmzied mood propmt set this global vairbale in globals to True.
         if openhome.app_globals.MOOD_EVOLVER_ENABLED:

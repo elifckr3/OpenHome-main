@@ -109,7 +109,7 @@ def main(personality, conversation, mood_json, mood_instructions):
             movie_suggestions = suggest_movies(
                 file_data['tmdb_api_key'])
             response = movie_suggestions
-
+            print(response)
 
 
         # Check if the message was valid to continue processing

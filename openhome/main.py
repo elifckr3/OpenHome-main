@@ -105,9 +105,11 @@ def main(personality, conversation, mood_json, mood_instructions):
                 print('Resuming main conversation loop.')
 
         if "movie" in user_message.lower():
+            print("MOVIEEEEE!!!!!!!!!!!!!!!!!!!!")
             movie_suggestions = suggest_movies(
                 file_data['tmdb_api_key'])
             response = movie_suggestions
+
 
 
         # Check if the message was valid to continue processing
